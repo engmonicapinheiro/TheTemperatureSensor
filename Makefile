@@ -10,6 +10,15 @@ include-flags := -I ${stm32l0xx-headers} -I ${stm32l0xx-sources} -I ${cmmsis-hea
 clean:
 	make clean-on-macos
 
+compile:
+	if [ "$(shell uname)" = "Darwin" ]; then \
+		make compile-on-macos; \
+	elif [ "$(shell uname)" = "Windows" ]; then \
+		make compile-on-windows; \
+	else \
+		echo "Unsupported OS"; \
+	fi
+
 compile-on-macos:
 	arm-none-eabi-gcc -c ${include-flags} --specs=nosys.specs ${sources}/main.c -o ${executable}
 

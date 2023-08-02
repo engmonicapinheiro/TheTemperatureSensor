@@ -17,6 +17,7 @@ void InitGpioClock(void);
 void InitGPIO(void);
 void PushButton(void);
 
+void InitShiftRegisterPins(void);
 
 
 #endif /* GPIO_H_ */

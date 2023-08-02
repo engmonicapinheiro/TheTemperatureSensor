@@ -5,7 +5,7 @@
  *      Author: monicapinheiro
  */
 
-#include "gpio.h"
+#include "../Inc/gpio.h"
 
 
 void InitGpioClock(void)
@@ -24,6 +24,22 @@ void InitGPIO(void)
 	/*PB4 configured as an input pin */
 	GPIOB->MODER &= ~(1U << 8);
 	GPIOB->MODER &= ~(1U << 9);
+}
+
+//define all the pins of the 74HC595 as output
+void InitShiftRegisterPins(void)
+{
+	//latch pin = pin D5, PB6- MODER6
+	GPIOB->MODER |= (1U << 12);
+	GPIOB->MODER &= ~(1U << 13);
+
+	//data pin = pin D4, PB7 - MODER7
+	GPIOB->MODER |= (1U << 14);
+	GPIOB->MODER &= ~(1U << 15);
+
+	//clock pin = pin D6, PB1 - MODER1
+	GPIOB->MODER |= (1U << 2);
+	GPIOB->MODER &= ~(1U << 3);
 }
 
 

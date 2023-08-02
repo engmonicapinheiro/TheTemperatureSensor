@@ -1,7 +1,8 @@
 #include"stm32l031xx.h"
 #include <stdio.h>
-#include "gpio.h"
+#include "../Inc/gpio.h"
 #include "uart.h"
+#include "../Inc/shiftRegister595.h"
 
 //char key;
 
@@ -14,6 +15,37 @@ void delay(uint32_t msec)
     }
 }
 
+
+int main()
+{
+
+	InitGpioClock();
+	InitGPIO();
+	InitShiftRegisterPins();
+
+	while(1)
+	{
+
+		for(uint32_t numbersToDisplay = 0; numbersToDisplay < 256; numbersToDisplay++)
+		{
+			UpdateLEDsLong(numbersToDisplay);
+			delay(1000);
+		}
+
+
+
+
+		/* to toggle the green LED */
+//		GPIOA->BSRR |= 0x100;
+//		delay(200);
+//		GPIOA->BSRR |= 0x1000000;
+//		delay(200);
+
+	}
+}
+
+
+#if 0
 
 int main()
 {
@@ -56,3 +88,5 @@ int main()
 
 	//return 0;
 }
+
+#endif

@@ -4,7 +4,7 @@
  *  Created on: 2 Jul 2023
  *      Author: monicapinheiro
  */
-#include "shiftRegister595.h"
+#include "../Inc/shiftRegister595.h"
 
 
 void UpdateLEDsLong(int value)

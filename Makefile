@@ -16,8 +16,6 @@ all: clean compile gen-asm
 .PHONY: compile
 compile: ${executable}
 
-
-
 ${executable}: $(sources)/main.c $(headers) $(stm32l0xx-headers) $(cmmsis-headers)
 	${CC} ${CFLAGS} -c ${include-flags} $< -o $@
 
@@ -27,6 +25,17 @@ gen-asm: ${assembly}
 ${assembly}: ${sources}/main.c
 	${CC} ${CFLAGS} -c ${include-flags} $< -S
 
+
 .PHONY: clean
 clean:
-	rm -rf ${executable} ${assembly}
+	rm -rf ${executable} ${assembly} ${graph.dot} ${graph.png}
+
+# Vizualization of the Makefile dependencies
+graph.dot := graph.dot
+graph.png := graph.png
+
+${graph.dot}: Makefile
+	make -Bnd | make2graph > $@
+
+${graph.png}: ${graph.dot}
+	dot -Tpng -o $@ $<

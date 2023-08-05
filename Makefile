@@ -7,38 +7,26 @@ executable := main.elf
 assembly := main.s
 include-flags := -I ${stm32l0xx-headers} -I ${stm32l0xx-sources} -I ${cmmsis-headers} -I ${headers} -I ${sources}
 
-.PHONY: all
-all:
-	make clean; \
-	make compile; \
-	make gen-asm-on-macos;
+CC=	arm-none-eabi-gcc
+CFLAGS= -Wall -shared -Wextra -Werror -O2 -specs=nosys.specs
 
-.PHONY: clean-on-macos
-clean:
-	make clean-on-macos
+.PHONY: all
+all: clean compile gen-asm
 
 .PHONY: compile
-compile:
-	if [ "$(shell uname)" = "Darwin" ]; then \
-		make compile-on-macos; \
-	elif [ "$(shell uname)" = "Windows" ]; then \
-		make compile-on-windows; \
-	else \
-		echo "Unsupported OS"; \
-	fi
+compile: ${executable}
 
-.PHONY: compile-on-macos
-compile-on-macos: ${executable}
 
-${executable}: ${sources}/main.c
-	arm-none-eabi-gcc -c ${include-flags} --specs=nosys.specs $< -o $@
 
-.PHONY: gen-asm-on-macos
-gen-asm-on-macos: ${assembly}
+${executable}: $(sources)/main.c $(headers) $(stm32l0xx-headers) $(cmmsis-headers)
+	${CC} ${CFLAGS} -c ${include-flags} $< -o $@
+
+.PHONY: gen-asm
+gen-asm: ${assembly}
 
 ${assembly}: ${sources}/main.c
-	arm-none-eabi-gcc -c ${include-flags} --specs=nosys.specs $< -S
+	${CC} ${CFLAGS} -c ${include-flags} $< -S
 
-.PHONY: clean-on-macos
-clean-on-macos:
+.PHONY: clean
+clean:
 	rm -rf ${executable} ${assembly}

@@ -4,7 +4,7 @@
 #include "uart.h"
 #include "../Inc/shiftRegister595.h"
 
-//char key;
+
 
 // delay loop for the default 2.1 MHz CPU clock with optimizer enabled
 void delay(uint32_t msec)

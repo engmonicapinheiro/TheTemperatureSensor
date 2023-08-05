@@ -1,3 +1,10 @@
+# Eclipse/CubeMX specific files
+.settings
+.classpath
+.project
+.cproject
+mxproject
+
 # Prerequisites
 *.d
 

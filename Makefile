@@ -35,7 +35,7 @@ graph.dot := graph.dot
 graph.png := graph.png
 
 ${graph.dot}: Makefile
-	make -Bnd | make2graph > $@
+	make -Bnd | makefile2graph > $@
 
 ${graph.png}: ${graph.dot}
 	dot -Tpng -o $@ $<

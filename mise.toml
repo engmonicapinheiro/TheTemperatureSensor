@@ -1,4 +1,5 @@
 [tools]
 gcc-arm-none-eabi = "14.2.Rel1"
 make = "4.4.1"
+pipx = "1.8.0"
 "pipx:makefile2dot" = "latest"

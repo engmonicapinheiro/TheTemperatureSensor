@@ -1,6 +1,4 @@
 [tools]
-gcc-arm-none-eabi = "14.2.Rel1"
-make = "4.4.1"
-pipx = "1.8.0"
-"pipx:makefile2dot" = "latest"
-python = "3.14.2"
+python = "3.14"
+pipx = "1.8"
+"pipx:platformio" = "6.1.18"

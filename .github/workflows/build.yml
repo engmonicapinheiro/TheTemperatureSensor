@@ -19,11 +19,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Install system dependencies (Linux)
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y makefile2graph graphviz
-
     - name: Install mise (Linux)
       run: |
         curl https://mise.run | sh
@@ -32,27 +27,5 @@ jobs:
     - name: Install project dependencies (Linux)
       run: mise install
 
-    - name: Run make clean (Linux)
-      run: make clean
-
-    - name: Run make compile (Linux)
-      run: mise exec -- make compile
-
-    - name: Run make gen-asm (Linux)
-      run: mise exec -- make gen-asm
-
-    - name: Run make all (Linux)
-      run: mise exec -- make all
-
-    - name: Run make graph.dot (Linux)
-      run: mise exec -- make graph.dot
-
-    - name: Run make graph.png (Linux)
-      run: mise exec -- make graph.png
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-artifacts-${{ matrix.os }}
-        path: |
-          main.elf
+    - name: Run platformIO run (Linux)
+      run: mise exec -- pio run
